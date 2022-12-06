@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  shopDB:
+    image: mongo:5.0.0
+    environment:
+      - MONGODB_DATABASE=${DB_NAME}
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo:/data/db
