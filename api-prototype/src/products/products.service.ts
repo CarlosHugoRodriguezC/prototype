@@ -1,7 +1,6 @@
 import {
   BadRequestException,
   Injectable,
-  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -10,6 +9,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
 import { ValidProductStatus } from './interfaces';
+import { handleErrors } from '../common/helpers';
 
 @Injectable()
 export class ProductsService {
@@ -21,7 +21,7 @@ export class ProductsService {
       const product = await this.productModel.create(createProductDto);
       return product;
     } catch (error) {
-      this.handleErrors(error);
+      handleErrors(error)
     }
   }
 
@@ -53,7 +53,7 @@ export class ProductsService {
     try {
       await product.updateOne(updateProductDto);
     } catch (error) {
-      this.handleErrors(error);
+      handleErrors(error)
     }
 
     return product;
@@ -66,19 +66,9 @@ export class ProductsService {
     try {
       await product.save();
     } catch (error) {
-      this.handleErrors(error);
+      handleErrors(error)
     }
   }
 
-  private handleErrors(error) {
-    if (error.code === 11000)
-      throw new BadRequestException(
-        `Product already exist ${JSON.stringify(error.keyValue)}`,
-      );
-
-    console.log(error);
-    throw new InternalServerErrorException(
-      `Something went wrong - check server logs`,
-    );
-  }
+  
 }

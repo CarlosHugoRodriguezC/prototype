@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { ValidProductStatus } from '../interfaces';
 
-@Schema()
+@Schema({ timestamps: true })
 export class Product extends Document {
   @Prop({ type: String, required: true, index: true })
   title: string;
