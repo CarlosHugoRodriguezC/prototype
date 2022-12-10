@@ -2,15 +2,15 @@ import { IsArray, IsOptional, IsString } from 'class-validator';
 
 export class CreateProductDto {
   @IsString()
-  name: string;
+  title: string;
 
   @IsString()
   @IsOptional()
-  description: string;
+  description?: string;
 
   @IsString()
   @IsOptional()
-  shortDescription: string;
+  shortDescription?: string;
 
   @IsString()
   @IsArray()
@@ -19,7 +19,7 @@ export class CreateProductDto {
 
   @IsString()
   @IsOptional()
-  lifeStyle: string;
+  lifeStyle?: string;
 
   @IsString()
   SKU: string;
