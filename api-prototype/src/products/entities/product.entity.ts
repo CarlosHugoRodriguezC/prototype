@@ -1,5 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
+import { Category } from 'src/categories/entities/category.entity';
+import { Image } from 'src/images/entities/image.entity';
 import { ValidProductStatus } from '../interfaces';
 
 @Schema({ timestamps: true })
@@ -25,8 +27,11 @@ export class Product extends Document {
   @Prop({ type: String, unique: true, index: true })
   slug: string;
 
-  // Todo image field
-  // Todo category, subcategory and departement fields
+  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: Image.name })
+  images: Image[];
+
+  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: Category.name })
+  categories:  Category[];
 
   @Prop({
     type: String,

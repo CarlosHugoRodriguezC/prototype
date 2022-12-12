@@ -27,6 +27,16 @@ export class CreateProductDto {
   @IsString()
   slug: string;
 
+  @IsString({ each: true })
+  @IsArray()
+  @IsOptional()
+  images?: string[];
+
+  @IsString({ each: true })
+  @IsArray()
+  @IsOptional()
+  categories?: string[];
+
   @IsString()
   @IsOptional()
   status?: string;
